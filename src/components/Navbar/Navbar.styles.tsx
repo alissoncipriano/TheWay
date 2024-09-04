@@ -1,8 +1,10 @@
 import { Box, styled, darken } from '@mui/material';
 
-export const StyledNavbar = styled(Box)(({ theme }) => ({
+import { theme } from 'theme/theme';
+
+export const StyledNavbar = styled(Box)(() => ({
   position: 'relative',
-  zIndex: '1000000',
+  zIndex: '1000',
 
   '& .Navbar-ul': {
     width: '100%',
@@ -29,10 +31,20 @@ export const StyledNavbar = styled(Box)(({ theme }) => ({
           )} !important`,
         },
       },
+    },
 
-      // '&:hover a': {
-      //   backgroundColor: `${theme.palette.primary.light} !important`,
-      // },
+    '& .Navbar-login-wrapper': {
+      display: 'flex',
+      marginLeft: 'auto',
+      gap: 20,
+
+      '& .Navbar-login-button': {
+        backgroundColor: theme.palette.secondary.main,
+        color: theme.palette.primary.main,
+        borderRadius: 3,
+        padding: '8px 15px 8px 15px',
+        transition: '0.1s',
+      },
     },
   },
 }));

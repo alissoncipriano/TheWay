@@ -1,6 +1,7 @@
 import Root from './root';
 import ErrorPage from './error/error-page';
 import Home from './Home';
+import Login from 'components/LoginModal';
 
 export const routes = [
   {
