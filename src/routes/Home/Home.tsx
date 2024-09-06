@@ -1,15 +1,12 @@
+import { Typography } from '@mui/material';
 import Page from 'components/Page';
-
-import { theme } from 'theme/theme';
 
 const Home = () => {
   return (
-    <Page
-      boxProps={{
-        bgcolor: theme.palette.primary.dark,
-      }}
-    >
-      Home
+    <Page>
+      <Typography color='#FFF' fontFamily='Poppins' fontWeight={600}>
+        Home
+      </Typography>
     </Page>
   );
 };

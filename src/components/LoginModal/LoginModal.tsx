@@ -10,6 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { StyledLoginModal } from './LoginModal.styles';
+import { Typography } from '@mui/material';
 
 export type LoginInputs = {
   email: string;
@@ -20,9 +21,15 @@ type LoginModalProps = {
   open: boolean;
   handleClose: () => void;
   onLogin: (data: LoginInputs) => void;
+  onRegisterClick: () => void;
 };
 
-const LoginModal = ({ open, handleClose, onLogin }: LoginModalProps) => {
+const LoginModal = ({
+  open,
+  handleClose,
+  onLogin,
+  onRegisterClick,
+}: LoginModalProps) => {
   const { register, handleSubmit } = useForm<LoginInputs>();
 
   const onSubmit: SubmitHandler<LoginInputs> = (data) => onLogin(data);
@@ -59,6 +66,10 @@ const LoginModal = ({ open, handleClose, onLogin }: LoginModalProps) => {
             label='Senha'
             {...register('password', { required: true })}
           />
+
+          <Typography className='LoginModal-register' onClick={onRegisterClick}>
+            Não possui uma conta? Registre-se!
+          </Typography>
         </DialogContent>
 
         <DialogActions>

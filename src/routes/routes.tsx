@@ -1,7 +1,18 @@
 import Root from './root';
 import ErrorPage from './error/error-page';
 import Home from './Home';
-import Login from 'components/LoginModal';
+
+export const routesLoggedOut = ['objetivo', 'escolas', 'contato'];
+export const routesLoggedIn = {
+  isAdm: ['criar-post', 'criar-tag', 'contato'],
+  isNotAdm: routesLoggedOut,
+};
+
+export const homeRoute = {
+  path: '',
+  element: <Home />,
+  tag: 'Home',
+};
 
 export const routes = [
   {
@@ -9,25 +20,26 @@ export const routes = [
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
-      {
-        path: '',
-        element: <Home />,
-        tag: 'Home',
-      },
+      homeRoute,
       {
         path: 'objetivo',
         element: <>Objetivo</>,
         tag: 'Qual é o Objetivo',
       },
       {
-        path: 'posts',
-        element: <>Posts Recentes</>,
-        tag: 'Posts Recentes',
-      },
-      {
         path: 'escolas',
         element: <>Escolas de Filosofia</>,
         tag: 'Escolas de Filosofia',
+      },
+      {
+        path: 'criar-post',
+        element: <>Criar post</>,
+        tag: 'Criar Post',
+      },
+      {
+        path: 'criar-tag',
+        element: <>Criar tag</>,
+        tag: 'Criar Tag',
       },
       {
         path: 'contato',

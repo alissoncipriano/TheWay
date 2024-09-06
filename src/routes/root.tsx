@@ -2,12 +2,13 @@ import PositionedSnackbar from 'components/PositionedSnackbar';
 import Navbar from 'components/Navbar';
 
 import { Outlet } from 'react-router-dom';
-import LinearLoader from 'components/LinearLoader';
+import useSession from 'hooks/useSession';
 
 export default function Root() {
+  useSession();
+
   return (
     <>
-      <LinearLoader />
       <PositionedSnackbar />
       <Navbar />
       <Outlet />

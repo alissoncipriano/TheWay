@@ -18,8 +18,6 @@ export const authenticate = createAsyncThunk(
         }),
       });
 
-      console.log(response);
-
       if (!response.ok) {
         if (response.status === 401)
           return { errorAuthenticationMessage: 'Credenciais inválidas' };
@@ -32,6 +30,77 @@ export const authenticate = createAsyncThunk(
       const { id, name, isAdmin } = data;
 
       return { id, name, email, isAdmin, loggedIn: true };
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const register = createAsyncThunk(
+  'users/register',
+  async ({
+    name,
+    email,
+    password,
+    passwordConfirmation,
+    rejectWithValue,
+  }: any) => {
+    try {
+      const response = await fetch(API.user.register, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          passwordConfirmation,
+        }),
+      });
+
+      if (!response.ok) {
+        if (response.status === 422)
+          return {
+            errorAuthenticationMessage: 'O email digitado já está em uso.',
+          };
+
+        if (response.status === 401)
+          return { errorAuthenticationMessage: 'Senhas não conferem.' };
+      }
+
+      const data = await response.json();
+
+      const { id, name: nameUser, email: emailUser, isAdmin } = data;
+
+      return { id, name: nameUser, email: emailUser, isAdmin, loggedIn: true };
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const checkEmailInUse = createAsyncThunk(
+  'users/exists',
+  async ({ email, rejectWithValue }: any) => {
+    try {
+      const response = await fetch(API.user.exists, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+        }),
+      });
+
+      if (!response.ok)
+        return {
+          errorAuthenticationMessage: 'O email digitado já está em uso.',
+          emailInUse: true,
+        };
+
+      return { loggedIn: false };
     } catch (error: any) {
       return rejectWithValue(error.response.data);
     }
@@ -59,6 +128,9 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(authenticate.fulfilled, (state, action) => {
+      state.user = { ...state.user, ...action.payload };
+    });
+    builder.addCase(register.fulfilled, (state, action) => {
       state.user = { ...state.user, ...action.payload };
     });
   },

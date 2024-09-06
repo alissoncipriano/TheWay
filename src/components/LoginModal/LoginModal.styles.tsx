@@ -58,4 +58,14 @@ export const StyledLoginModal = styled(Dialog)(() => ({
       backgroundColor: darken(theme.palette.secondary.light, 0.4),
     },
   },
+
+  '& .LoginModal-register': {
+    color: '#FFF',
+    textAlign: 'center',
+    cursor: 'pointer',
+
+    '&:hover': {
+      textDecoration: 'underline',
+    },
+  },
 }));
