@@ -1,7 +1,5 @@
 import { Dialog, styled, darken } from '@mui/material';
 
-import { theme } from 'theme/theme';
-
 export const StyledRegisterModal = styled(Dialog)(() => ({
   '& .MuiPaper-root': {
     backgroundColor: '#040409',
